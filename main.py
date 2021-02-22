@@ -38,45 +38,45 @@ class Window2(QWidget):
         con = sqlite3.connect("coffee.db")
         # name,roasting,grains,taste,price,v
         cur = con.cursor()
-        res = cur.execute(f"SELECT id FROM coffee").fetchall()
-        cur.execute(f"""INSERT INTO coffee(name,roasting,grains,taste,price,v)
+        cur.execute(f"""INSERT INTO Сoffee(name,roasting,grains,taste,price,v)
                         VALUES('{self.name}', '{self.roasting}', '{self.grains}',
                         '{self.taste}', '{self.price}', '{self.v}')""")
         con.commit()
-        print("Ok")
+        print("Добавление произошло успешно")
 
     def change(self):
         con = sqlite3.connect("coffee.db")
         cur = con.cursor()
-        res = cur.execute(f"SELECT id FROM coffee").fetchall()
+        res = cur.execute(f"SELECT id FROM Сoffee").fetchall()
         a = max([int(i[0]) for i in res])
-        if a + 1 != int(self.row):
+        if a < int(self.row) and int(self.row) > 0:
             self.add()
             return
         if self.name:
-            cur.execute(f"""UPDATE coffee SET name = '{self.name}' 
+            cur.execute(f"""UPDATE Сoffee SET name = '{self.name}' 
                             WHERE id == '{self.row}'""")
             con.commit()
         if self.roasting:
-            cur.execute(f"""UPDATE coffee SET roasting = '{self.roasting}' 
+            cur.execute(f"""UPDATE Сoffee SET roasting = '{self.roasting}' 
                                         WHERE id == '{self.row}'""")
             con.commit()
         if self.grains:
-            cur.execute(f"""UPDATE coffee SET grains = '{self.grains}' 
+            cur.execute(f"""UPDATE Сoffee SET grains = '{self.grains}' 
                                         WHERE id == '{self.row}'""")
             con.commit()
         if self.taste:
-            cur.execute(f"""UPDATE coffee SET taste = '{self.taste}' 
+            cur.execute(f"""UPDATE Сoffee SET taste = '{self.taste}' 
                                         WHERE id == '{self.row}'""")
             con.commit()
         if self.price:
-            cur.execute(f"""UPDATE coffee SET price = '{self.price}' 
+            cur.execute(f"""UPDATE Сoffee SET price = '{self.price}' 
                                         WHERE id == '{self.row}'""")
             con.commit()
         if self.v:
-            cur.execute(f"""UPDATE coffee SET v = '{self.v}' 
+            cur.execute(f"""UPDATE Сoffee SET v = '{self.v}' 
                                         WHERE id == '{self.row}'""")
             con.commit()
+        print("Изменение прошло успешно")
 
 
 
@@ -90,7 +90,7 @@ class MyWidget(QWidget):
     def work(self):
         con = sqlite3.connect("coffee.db")
         cur = con.cursor()
-        req = cur.execute("SELECT * FROM coffee").fetchall()
+        req = cur.execute("SELECT * FROM Сoffee").fetchall()
         print(req)
         self.tableWidget.setRowCount(len(req))
         for i in range(len(req)):
